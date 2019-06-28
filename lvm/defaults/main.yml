@@ -1,0 +1,9 @@
+---
+# defaults file for lvm
+
+DISK1: "{{ansible_local.disk.disk[0]}}"
+DISK2: "{{ansible_local.disk.disk[1]}}"
+VG_NAME: ansible-vg
+LV_NAME: vol1
+MOUNT_VOL: /data
+LV_PATH: /dev/{{VG_NAME}}/{{LV_NAME}}

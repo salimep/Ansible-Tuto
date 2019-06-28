@@ -1,0 +1,5 @@
+---
+- hosts: master-1
+  become: yes
+  roles:
+   - lvm

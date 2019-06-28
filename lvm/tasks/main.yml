@@ -1,0 +1,50 @@
+---
+# tasks file for lvm
+- name: "Create custom fact directory"
+  file:
+   path: "/etc/ansible/facts.d"
+   state: "directory"
+- name: "Insert custom fact file"
+  copy:
+   src: files/disks.py
+   dest: /etc/ansible/facts.d/disk.fact
+   mode: 0755
+- name: Create Physical Volume on all the nodes
+  shell: pvcreate {{DISK1}} {{DISK2}}
+  register: pv_log
+- name: list PV output
+  debug:
+   msg: "{{pv_log}}"
+- name: create volume group
+  lvg:
+   vg: "{{VG_NAME}}"
+   pvs: "{{DISK1}},{{ DISK2 }}"
+   state: present
+- name:
+  lvol:
+   vg: "{{VG_NAME}}"
+   lv: "{{LV_NAME}}"
+   size: 1g
+  register: dev
+- name: list format output
+  debug:
+   msg: "{{dev}}"
+- name: format "{{LV_NAME}}" volume to XFS
+  filesystem:
+   fstype: xfs
+   dev: /dev/{{VG_NAME}}/{{LV_NAME}}
+
+- name: create new directory for  volume mount
+  file:
+   dest: "{{ MOUNT_VOL }}"
+   state: directory
+
+- name: Mount {{MOUNT_VOL}}
+  mount:
+    path: "{{ MOUNT_VOL }}"
+    src: "{{ LV_PATH }}"
+    opts: defaults
+    fstype: xfs
+    state: mounted
+
+  

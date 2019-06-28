@@ -1,0 +1,7 @@
+---
+# tasks file for host-file-gen
+- name: generate hosts file entry for worker nodes
+  template:
+   src: hosts.j2
+   dest: /etc/hosts
+
