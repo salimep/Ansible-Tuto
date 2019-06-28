@@ -1,8 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
-
+generating hosts file entry via ansible roles
 Requirements
 ------------
 
