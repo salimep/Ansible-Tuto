@@ -2,6 +2,6 @@
 127.0.0.1 localhost
 
 {% for a in hostvars %}
- {{ hostvars[a]['ansible_nodename'] }} {{ hostvars[a].ansible_default_ipv4.address }}
+ {{ hostvars[a].ansible_default_ipv4.address }} {{"\t"}} {{ hostvars[a]['ansible_nodename'] }} 
 {%endfor%}
 
