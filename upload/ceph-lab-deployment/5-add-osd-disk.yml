@@ -1,0 +1,17 @@
+---
+ - hosts: ceph-admin
+   become: yes
+   become_user: cephuser
+   vars:
+     mon1: ceph-mon
+     user: cephuser
+   tasks:
+    - name: copy ceph monitor node setup script
+      copy:
+       src: files/ceph-disk-act.sh
+       dest: /home/cephuser/disk-act.sh
+       mode: 755
+    - name: copy ceph monitor node setup script
+      script: /home/cephuser/disk-act.sh
+      register: diskact
+    - debug: msg => "{{ diskact }}"

@@ -1,0 +1,34 @@
+---
+- hosts: ceph-mon:ceph-osd
+  become: yes
+  tasks:
+    - name:  generate host file entry
+      template:
+       src: host.j2
+       dest: /etc/hosts
+    - name: disable selinux
+      lineinfile:
+       path: /etc/sysconfig/selinux
+       regexp: '^SELINUX='
+       line:  'SELINUX=disabled'
+    - name: create cephuser on all ceph nodes
+      user:
+       name: cephuser
+       shell: /bin/bash
+       home: /home/cephuser
+       state: present
+    - name: install NTP server
+      package:
+       name: ntp
+       state: present
+    - name: start NTPD service
+      service:
+       name: ntpd
+       enabled: yes
+       state: started
+    - name: copy sudo files
+      copy:
+       src: files/cephuser
+       dest: /etc/sudoers.d/
+    - name: set sudofile permission 0440
+      command:  chmod 0440 /etc/sudoers.d/cephuser

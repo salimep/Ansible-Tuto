@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+   - name: update all packages
+     yum:
+      name: "*"
+      state: latest
+
+   - name: "create cephuser account on all nodes"
+     user:
+      name: cephuser
+      state: present
+   - name: add cephuser in to sudoers file
+     shell: |
+      echo "cephuser ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/cephuser
+      chmod 0440 /etc/sudoers.d/cephuser
+      sed -i s'/Defaults requiretty/#Defaults requiretty'/g /etc/sudoers
+   - name: change password for cephuser
+     shell: |
+      echo "cephuser" | passwd --stdin cephuser
+      
+   

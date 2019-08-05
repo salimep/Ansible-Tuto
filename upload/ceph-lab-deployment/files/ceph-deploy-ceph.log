@@ -1,0 +1,70 @@
+[2019-08-03 07:46:14,035][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf
+[2019-08-03 07:46:14,036][ceph_deploy.cli][INFO  ] Invoked (1.5.39): /usr/bin/ceph-deploy new ceph-mon
+[2019-08-03 07:46:14,036][ceph_deploy.cli][INFO  ] ceph-deploy options:
+[2019-08-03 07:46:14,036][ceph_deploy.cli][INFO  ]  username                      : None
+[2019-08-03 07:46:14,037][ceph_deploy.cli][INFO  ]  func                          : <function new at 0x7f527dfcc5f0>
+[2019-08-03 07:46:14,037][ceph_deploy.cli][INFO  ]  verbose                       : False
+[2019-08-03 07:46:14,037][ceph_deploy.cli][INFO  ]  overwrite_conf                : False
+[2019-08-03 07:46:14,037][ceph_deploy.cli][INFO  ]  quiet                         : False
+[2019-08-03 07:46:14,037][ceph_deploy.cli][INFO  ]  cd_conf                       : <ceph_deploy.conf.cephdeploy.Conf instance at 0x7f527d73be60>
+[2019-08-03 07:46:14,037][ceph_deploy.cli][INFO  ]  cluster                       : ceph
+[2019-08-03 07:46:14,037][ceph_deploy.cli][INFO  ]  ssh_copykey                   : True
+[2019-08-03 07:46:14,038][ceph_deploy.cli][INFO  ]  mon                           : ['ceph-mon']
+[2019-08-03 07:46:14,038][ceph_deploy.cli][INFO  ]  public_network                : None
+[2019-08-03 07:46:14,038][ceph_deploy.cli][INFO  ]  ceph_conf                     : None
+[2019-08-03 07:46:14,038][ceph_deploy.cli][INFO  ]  cluster_network               : None
+[2019-08-03 07:46:14,038][ceph_deploy.cli][INFO  ]  default_release               : False
+[2019-08-03 07:46:14,039][ceph_deploy.cli][INFO  ]  fsid                          : None
+[2019-08-03 07:46:14,039][ceph_deploy.new][DEBUG ] Creating new cluster named ceph
+[2019-08-03 07:46:14,040][ceph_deploy.new][INFO  ] making sure passwordless SSH succeeds
+[2019-08-03 07:46:14,133][ceph-mon][DEBUG ] connected to host: ansible-cli 
+[2019-08-03 07:46:14,147][ceph-mon][INFO  ] Running command: ssh -CT -o BatchMode=yes ceph-mon
+[2019-08-03 07:46:15,203][ceph-mon][DEBUG ] connected to host: ceph-mon 
+[2019-08-03 07:46:15,205][ceph-mon][DEBUG ] detect platform information from remote host
+[2019-08-03 07:46:15,254][ceph-mon][DEBUG ] detect machine type
+[2019-08-03 07:46:15,266][ceph-mon][DEBUG ] find the location of an executable
+[2019-08-03 07:46:15,277][ceph-mon][INFO  ] Running command: /usr/sbin/ip link show
+[2019-08-03 07:46:15,304][ceph-mon][INFO  ] Running command: /usr/sbin/ip addr show
+[2019-08-03 07:46:15,329][ceph-mon][DEBUG ] IP addresses found: [u'192.168.43.191']
+[2019-08-03 07:46:15,331][ceph_deploy.new][DEBUG ] Resolving host ceph-mon
+[2019-08-03 07:46:15,333][ceph_deploy.new][DEBUG ] Monitor ceph-mon at 192.168.43.191
+[2019-08-03 07:46:15,333][ceph_deploy.new][DEBUG ] Monitor initial members are ['ceph-mon']
+[2019-08-03 07:46:15,334][ceph_deploy.new][DEBUG ] Monitor addrs are ['192.168.43.191']
+[2019-08-03 07:46:15,334][ceph_deploy.new][DEBUG ] Creating a random mon key...
+[2019-08-03 07:46:15,334][ceph_deploy.new][DEBUG ] Writing monitor keyring to ceph.mon.keyring...
+[2019-08-03 07:46:15,335][ceph_deploy.new][DEBUG ] Writing initial config to ceph.conf...
+[2019-08-03 07:47:16,246][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf
+[2019-08-03 07:47:16,248][ceph_deploy.cli][INFO  ] Invoked (1.5.39): /usr/bin/ceph-deploy new ceph-mon
+[2019-08-03 07:47:16,248][ceph_deploy.cli][INFO  ] ceph-deploy options:
+[2019-08-03 07:47:16,248][ceph_deploy.cli][INFO  ]  username                      : None
+[2019-08-03 07:47:16,249][ceph_deploy.cli][INFO  ]  func                          : <function new at 0x7f1de33295f0>
+[2019-08-03 07:47:16,249][ceph_deploy.cli][INFO  ]  verbose                       : False
+[2019-08-03 07:47:16,250][ceph_deploy.cli][INFO  ]  overwrite_conf                : False
+[2019-08-03 07:47:16,250][ceph_deploy.cli][INFO  ]  quiet                         : False
+[2019-08-03 07:47:16,250][ceph_deploy.cli][INFO  ]  cd_conf                       : <ceph_deploy.conf.cephdeploy.Conf instance at 0x7f1de2a98e60>
+[2019-08-03 07:47:16,251][ceph_deploy.cli][INFO  ]  cluster                       : ceph
+[2019-08-03 07:47:16,251][ceph_deploy.cli][INFO  ]  ssh_copykey                   : True
+[2019-08-03 07:47:16,251][ceph_deploy.cli][INFO  ]  mon                           : ['ceph-mon']
+[2019-08-03 07:47:16,251][ceph_deploy.cli][INFO  ]  public_network                : None
+[2019-08-03 07:47:16,251][ceph_deploy.cli][INFO  ]  ceph_conf                     : None
+[2019-08-03 07:47:16,251][ceph_deploy.cli][INFO  ]  cluster_network               : None
+[2019-08-03 07:47:16,251][ceph_deploy.cli][INFO  ]  default_release               : False
+[2019-08-03 07:47:16,252][ceph_deploy.cli][INFO  ]  fsid                          : None
+[2019-08-03 07:47:16,252][ceph_deploy.new][DEBUG ] Creating new cluster named ceph
+[2019-08-03 07:47:16,252][ceph_deploy.new][INFO  ] making sure passwordless SSH succeeds
+[2019-08-03 07:47:16,359][ceph-mon][DEBUG ] connected to host: ansible-cli 
+[2019-08-03 07:47:16,372][ceph-mon][INFO  ] Running command: ssh -CT -o BatchMode=yes ceph-mon
+[2019-08-03 07:47:17,400][ceph-mon][DEBUG ] connected to host: ceph-mon 
+[2019-08-03 07:47:17,402][ceph-mon][DEBUG ] detect platform information from remote host
+[2019-08-03 07:47:17,453][ceph-mon][DEBUG ] detect machine type
+[2019-08-03 07:47:17,464][ceph-mon][DEBUG ] find the location of an executable
+[2019-08-03 07:47:17,472][ceph-mon][INFO  ] Running command: /usr/sbin/ip link show
+[2019-08-03 07:47:17,497][ceph-mon][INFO  ] Running command: /usr/sbin/ip addr show
+[2019-08-03 07:47:17,520][ceph-mon][DEBUG ] IP addresses found: [u'192.168.43.191']
+[2019-08-03 07:47:17,520][ceph_deploy.new][DEBUG ] Resolving host ceph-mon
+[2019-08-03 07:47:17,521][ceph_deploy.new][DEBUG ] Monitor ceph-mon at 192.168.43.191
+[2019-08-03 07:47:17,521][ceph_deploy.new][DEBUG ] Monitor initial members are ['ceph-mon']
+[2019-08-03 07:47:17,521][ceph_deploy.new][DEBUG ] Monitor addrs are ['192.168.43.191']
+[2019-08-03 07:47:17,522][ceph_deploy.new][DEBUG ] Creating a random mon key...
+[2019-08-03 07:47:17,522][ceph_deploy.new][DEBUG ] Writing monitor keyring to ceph.mon.keyring...
+[2019-08-03 07:47:17,523][ceph_deploy.new][DEBUG ] Writing initial config to ceph.conf...

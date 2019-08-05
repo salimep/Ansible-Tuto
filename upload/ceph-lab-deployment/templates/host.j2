@@ -1,0 +1,6 @@
+
+127.0.0.1 localhost
+
+{% for host in groups['ceph-mon'] %}
+   {{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}  {{ hostvars[host]['ansible_facts']['nodename'] }}
+{% endfor %}

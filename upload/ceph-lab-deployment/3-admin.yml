@@ -1,0 +1,85 @@
+---
+ - hosts: ceph-admin
+   become: yes
+   become_user: cephuser
+   vars:
+     mon1: ceph-mon
+     user: cephuser
+   tasks:
+    - name: generate ssh-key
+      command:  echo "yes" |ssh-keygen -t rsa -N "" -f /home/cephuser/.ssh/id_rsa 
+    - name: Set authorized key in alternate location
+      authorized_key:
+       user: cephuser
+       state: present
+       key: "{{ lookup('file', '/home/{{user}}/.ssh/id_rsa.pub') }}"
+       manage_dir: False
+    - name: fetch ssh key locally from admin node
+      fetch:
+       src: /home/cephuser/.ssh/id_rsa.pub
+       dest: /tmp/id_rsa.pub
+       flat: yes
+ - hosts: ceph-mon:ceph-osd
+   become: yes
+   become_user: cephuser
+   tasks:
+    - name: Set authorized key taken from file
+      authorized_key:
+        user: cephuser
+        state: present
+        key: "{{ lookup('file', '/home/cephuser/.ssh/id_rsa.pub') }}"
+ - hosts: ceph-admin
+   become: yes
+   become_user: cephuser
+   tasks:
+    - name: install ceph repo on admin node
+      command: sudo rpm -ivh http://download.ceph.com/rpm-jewel/el7/noarch/ceph-deploy-1.5.39-0.noarch.rpm
+      ignore_errors: True
+    - name: install ceph-deploy package on admin node
+      package:
+       name: ceph-deploy
+       state: present
+    - name: generate ceph.conf file
+      command: ceph-deploy new ceph-mon
+      register: output
+    - name: list output
+      debug:
+       msg: "{{ output }}"
+    - name: modify entry files
+      blockinfile:
+       path: /home/cephuser/ceph.conf
+       block: |
+          public network = 192.168.43.0/24
+          osd pool default size = 2
+    - name: install ceph-packages on ceph-admin
+      command: ceph-deploy install ceph-admin
+      register: admin
+    - debug:
+       msg: "{{ admin }}"
+    
+    - name: install ceph-packages on ceph-mon
+      command: ceph-deploy install ceph-mon
+      register: mon
+    - debug:
+       msg: "{{ mon }}"
+    
+    - name: install ceph-packages on osd nodes
+      command: ceph-deploy install {{item}}
+      with_items:
+         - ceph-osd1
+         - ceph-osd2
+      register: osd2
+    - debug:
+       msg: "{{ osd2 }}"
+    - name: setup mon  file
+      command:   ceph-deploy --overwrite-conf mon create-initial
+      register: mon
+    - debug:
+       msg: "{{ mon }}"
+
+    - name: gathere moonitering keys 
+      command: ceph-deploy gatherkeys ceph-mon
+      register: key
+    - debug:
+       msg: "{{ key }}"
+     

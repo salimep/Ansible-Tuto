@@ -1,0 +1,27 @@
+---
+- hosts: ceph-osd
+  become: yes
+  tasks:
+   - name: craete custom facts directory
+     file:
+      path: /etc/ansbile/facts.d
+      state: directory
+   - name:  copy facts script 
+     copy:
+      src: files/disks.py
+      dest: /etc/ansbile/facts.d/
+      mode: 0755
+   - name: list localdisk
+     debug:
+      msg: " {{ansible_local.disk.disk[1] }} "
+   - name:  craete label parted on  osd disks
+     command: parted -s "{{ item }}" mklabel gpt mkpart primary xfs 0% 100%
+     with_items: 
+      - "{{ ansible_local.disk.disk[0] }}"
+      - "{{ ansible_local.disk.disk[1] }}"
+   - name: create file system on osd disks
+     command: sudo mkfs.xfs "{{ item }}" -f
+     with_items: 
+       - "{{ ansible_local.disk.disk[0] }}"
+       - "{{ ansible_local.disk.disk[1] }}"
+
