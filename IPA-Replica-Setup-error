@@ -1,0 +1,56 @@
+
+IPA REPLICATION WAS FAILED  due to  TLS handshake error for dirsrv
+
+
+IPA Version: 4.6.6
+OS: EL 7.8
+
+
+
+getcert list
+Number of certificates and requests being tracked: 1.
+Request ID '20210810125946':
+        status: CA_UNREACHABLE
+        ca-error: Server at https://appmipa01d.XXXX.XX.XX/ipa/xml failed request, will retry: 4035 (RPC failed at server.  Request failed with status 401: Non-2xx response from CA REST API: 401. Authorization Error).
+        stuck: no
+        key pair storage: type=NSSDB,location='/etc/dirsrv/slapd-XX-XXX-XXXX',nickname='Server-Cert',token='NSS Certificate DB',pinfile='/etc/dirsrv/slapd-XXX-XX-XXXX/pwdfile.txt'
+        certificate: type=NSSDB,location='/etc/dirsrv/slapd-XXX-XX-XXXX',nickname='Server-Cert'
+        CA: IPA
+        issuer:
+        subject:
+        expires: unknown
+        pre-save command:
+        post-save command: /usr/libexec/ipa/certmonger/restart_dirsrv XXX-XX-XXXX
+        track: yes
+        auto-renew: yes
+
+
+after digging internet  nothing found usefull so  i thought its good to share to  sombodey else who facing the same issue ,
+the issue was due to   pkidbuser dont have privilages  for issueing  CA certificate 
+
+
+## check pkidbuser exists or not in the LDAP
+
+ldapsearch -D "cn=directory manager" -W -b "cn=Registration Manager Agents,ou=groups,o=ipaca"
+
+if pkidbuser doesnt exists  Add it
+#############
+ldapmodify -D "cn= directory manager" -W << EOF
+changetype: modify
+dn: cn=Registration Manager Agents,ou=groups,o=ipaca
+add: uniqueMember
+uniqueMemeber: uid=pkidbuser,ou=people,o=ipaca
+EOF
+
+##
+
+ ipa-replica-install --uninstall
+ 
+ 
+ ##    setup replica again
+ 
+ ipa-replica-install --prinicipal admin --admin-password hahahah --no-host-dns --setup-dns --no-forwarders force-join
+
+
+
+
