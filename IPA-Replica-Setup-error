@@ -11,7 +11,7 @@ getcert list
 Number of certificates and requests being tracked: 1.
 Request ID '20210810125946':
         status: CA_UNREACHABLE
-        ca-error: Server at https://appmipa01d.XXXX.XX.XX/ipa/xml failed request, will retry: 4035 (RPC failed at server.  Request failed with status 401: Non-2xx response from CA REST API: 401. Authorization Error).
+        ca-error: Server at https://apipa01d.XXXX.XX.XX/ipa/xml failed request, will retry: 4035 (RPC failed at server.  Request failed with status 401: Non-2xx response from CA REST API: 401. Authorization Error).
         stuck: no
         key pair storage: type=NSSDB,location='/etc/dirsrv/slapd-XX-XXX-XXXX',nickname='Server-Cert',token='NSS Certificate DB',pinfile='/etc/dirsrv/slapd-XXX-XX-XXXX/pwdfile.txt'
         certificate: type=NSSDB,location='/etc/dirsrv/slapd-XXX-XX-XXXX',nickname='Server-Cert'
